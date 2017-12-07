@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './app/root';
+import Root from './root';
 
 document.addEventListener('DOMContentLoaded', () => {
 
