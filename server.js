@@ -1,12 +1,12 @@
 
 
 const express = require('express');
-const api = require('./routes/api');
+const api_v1 = require('./routes/api_v1');
 const port = 3001 || process.env.PORT;
 const app = express();
 
 //serving RESTful API
-app.use('/api', api);
+app.use('/api/v1', api_v1);
 //serving static page
 app.use('/', express.static(__dirname + '/dev'));
 
