@@ -1,7 +1,6 @@
-const models = require('./models/models.js');
+const UserModel = require('./models/user.js');
 const repl = require('repl');
 const Sequelize = require('sequelize');
-const createModel = require('./utilities/createSequelizeModel');
 // Or you can simply use a connection uri
 const sequelize = new Sequelize('postgres://postgres:Datam1ner@mydb.cnqujrmnprhe.us-west-1.rds.amazonaws.com:5432/tdm');
 
@@ -10,14 +9,16 @@ sequelize
   .then(() => {
     console.log('Connection has been established successfully.');
     var replServer = repl.start({});
-    models.forEach((model)=> {
-      //let schema = model.schema;
-      let sequelModel = createModel(model);//sequelize.define(model.table, schema);
-      replServer.context[model.name] = sequelModel;
-      global[model.name] = sequelModel;
-      //smodel.name.sync({force: true});
-
-    });
+    // models.forEach((model)=> {
+    //   //let schema = model.schema;
+    //   let sequelModel = createModel(model);//sequelize.define(model.table, schema);
+    //   replServer.context[model.name] = sequelModel;
+    //   global[model.name] = sequelModel;
+    //   //smodel.name.sync({force: true});
+    //
+    // });
+    const User = UserModel(sequelize);
+    replServer.context.User = User;
     replServer.context.sequelize = sequelize;
 
     let user = replServer.context.user = replServer.context.User.build({firstName: 'David', 'lastName': 'Wong',

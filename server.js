@@ -2,9 +2,12 @@
 
 const express = require('express');
 const api_v1 = require('./routes/api_v1');
+const session = require('./routes/session');
 const port = 3001 || process.env.PORT;
 const app = express();
 
+
+app.use('/session', session);
 //serving RESTful API
 app.use('/api/v1', api_v1);
 //serving static page
@@ -18,7 +21,7 @@ app.listen(port, function onStart(err) {
   console.info('==> Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
 });
 
-app.use(function(req, res, next) {
+app.use('/', function(req, res, next) {
    var err = new Error('Not Found');
    err.status = 404;
    next(err);
