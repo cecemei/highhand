@@ -2,6 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
+const sequelize = require('../models/dbconn');
+const UserModel = require('../models/user');
 
 /* GET api . */
 router.get('/', function(req, res, next) {
@@ -9,16 +11,17 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.post('/user', function(req, res, next) {
-  const sequelize = require('../models/dbconn');
-  const UserModel = require('./models/user.js');
+router.get('/users', function(req, res, next) {
+  res.send('the users page');
+});
 
+router.post('/users', function(req, res) {
   sequelize
     .authenticate()
     .then(() => {
       const User = UserModel(sequelize);
-      let user = User.build({email: req.data.email,
-        password: req.data.password});
+      let user = User.build({email: req.body.email,
+        password: req.body.password});
       user.save()
         .then(()=>{
           res.send({email: user.email});

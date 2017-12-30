@@ -1,12 +1,17 @@
 import React from 'react';
 import SignUp from './components/signupContainer';
+import {Provider} from 'react-redux';
 
-class Root extends React.Component {
-    render(){
+const Root = ({store}) => {
+
       //return (<div> hello root </div>);
-      return <SignUp/>;
+      return <Provider store={store}>
+              <SignUp/>
+            </Provider>;
 
-    }
-}
+
+
+};
+
 
 export default Root;

@@ -1,12 +1,14 @@
 
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const api_v1 = require('./routes/api_v1');
 const session = require('./routes/session');
 const port = 3001 || process.env.PORT;
 const app = express();
 
-
+app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/session', session);
 //serving RESTful API
 app.use('/api/v1', api_v1);

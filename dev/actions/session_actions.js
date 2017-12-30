@@ -3,10 +3,12 @@
 const CREATE_USER = 'CREATE_USER';
 
 const signupapi = user => {
+  window.user=user;
   return $.ajax({
     method: "POST",
-    url: "/api_v1/users",
-    data: {user}
+    url: "/api/v1/users",
+    data: user,
+    dataType: 'json'
   });
 };
 
