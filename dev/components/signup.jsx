@@ -24,24 +24,22 @@ class SignUp extends Component {
   }
     render(){
       return (
-        <form>
-          <div>
-            <label>
-              Enter your email
-            </label>
-            <input type="text" onChange={this.updateEmail}></input>
+        <form id='signup'>
+          <div id='signupheader'>
+            <h2 className='logo'>Highhand</h2>
+            <h3 className='gray bold'>Sign up to see photos and videos
+            from your friends.</h3>
           </div>
-          <div>
-            <label>
-              Enter the password
-            </label>
-            <input type="password" onChange={this.updatePassword}></input>
+          <div id='or-divider'>
+            <div className='line'></div>
+            <h3 className='gray bold'> OR </h3>
+            <div className='line'></div>
           </div>
-          <div>
-            <button onClick={this.signUp}>
-              Create an Account!
-            </button>
-          </div>
+          <input type="text" onChange={this.updateEmail} placeholder="Email"></input>
+          <input type="password" onChange={this.updatePassword} placeholder="Password"></input>
+          <button onClick={this.signUp}>
+            Sign Up
+          </button>
         </form>);
 
     }

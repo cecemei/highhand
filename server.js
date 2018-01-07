@@ -38,3 +38,9 @@ app.use('/', function(req, res, next) {
     res.status(err.status || 500);
     res.sendFile('dev/error.html', {root: __dirname });
   });
+
+//console.log(app._router.stack);
+
+app._router.stack.forEach(function(r){
+  console.log(r);
+  if (r.route && r.route.path){ console.log(r.route.path) } });
