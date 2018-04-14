@@ -1,11 +1,10 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
 const Sequelize = require('sequelize');
+const db = require('./dbconn')
 
-const User = (connection) => {
-  let schema = {
+const User = db.define('user', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -33,9 +32,9 @@ const User = (connection) => {
     sessionToken: {
       type: Sequelize.STRING
     }
-  };
-  let User = connection.define('user', schema);
-  User.validateCredentials = function(inputPassword){
+  });
+
+  User.prototype.validateCredentials = function(inputPassword){
     return bcrypt.compare(inputPassword, this.getDataValue('passwordHash'), function(err, res){
       if(err)
       {
@@ -50,8 +49,5 @@ const User = (connection) => {
 
   };
 
-  return User;
-
-};
 
 module.exports = User;

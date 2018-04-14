@@ -1,27 +1,15 @@
-const UserModel = require('./models/user.js');
+const User = require('./models/user');
 const repl = require('repl');
-const Sequelize = require('sequelize');
-// Or you can simply use a connection uri
-const sequelize = new Sequelize('postgres://postgres:Datam1ner@mydb.cnqujrmnprhe.us-west-1.rds.amazonaws.com:5432/tdm');
+const db = require('./models/dbconn');
 
-sequelize
+db
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
     var replServer = repl.start({});
-    // models.forEach((model)=> {
-    //   //let schema = model.schema;
-    //   let sequelModel = createModel(model);//sequelize.define(model.table, schema);
-    //   replServer.context[model.name] = sequelModel;
-    //   global[model.name] = sequelModel;
-    //   //smodel.name.sync({force: true});
-    //
-    // });
-    const User = UserModel(sequelize);
     replServer.context.User = User;
-    replServer.context.sequelize = sequelize;
 
-    let user = replServer.context.user = replServer.context.User.build({firstName: 'David', 'lastName': 'Wong',
+    let user = replServer.context.User.build({firstName: 'David', 'lastName': 'Wong',
       password: 'password',
        email: 'david@gmail.com'});
     user.save()
@@ -35,19 +23,3 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
-
-
-//const User = sequelize.define('user', {}); // timestamps is false by default
-// User.findAll({
-//   where: {
-//     firstName: 'John'
-//   }
-// }).then(users => {
-//   console.log(users);
-// });
-//sequelize.close();
-/*
-sequelize.query(`SELECT * FROM users where "firstName" = 'John'`).then(myTableRows => {
-  console.log(myTableRows.length);
-});*/

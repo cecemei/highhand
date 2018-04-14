@@ -2,8 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const sequelize = require('../models/dbconn');
-const UserModel = require('../models/user');
+const User = require('../models/user');
 
 /* GET api . */
 router.get('/', function(req, res, next) {
@@ -16,24 +15,19 @@ router.get('/users', function(req, res, next) {
 });
 
 router.post('/users', function(req, res) {
-  sequelize
-    .authenticate()
-    .then(() => {
-      const User = UserModel(sequelize);
-      let user = User.build({email: req.body.email,
-        password: req.body.password});
-      user.save()
-        .then(()=>{
-          res.send({email: user.email});
-        }).catch(()=>{
-          res.status(411);
-          res.send({err: 'unable to create user'});
-        });
-    })
-    .catch(err => {
-      res.status(401);
-      res.send({err: 'Unable to connect to the database:'});
+  if(req.body.email === undefined || req.body.password === defined ){
+    return res.send({ err: 'email or password invalid.'});
+  }
+  let user = User.build({email: req.body.email,
+    password: req.body.password});
+  user.save()
+    .then(()=>{
+      res.send({email: user.email});
+    }).catch(()=>{
+      res.status(411);
+      res.send({err: 'unable to create user'});
     });
+
 
 });
 
