@@ -1,7 +1,7 @@
 module.exports = {
-    entry: './dev/index.jsx',
+    entry: './app/index.jsx',
     output: {
-        filename: './dev/bundle.js',
+        filename: './app/bundle.js',
     },
 
     module: {
